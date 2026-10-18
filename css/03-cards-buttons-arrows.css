@@ -1,0 +1,247 @@
+/* 03-cards-buttons-arrows - Cutout product cards, glass action buttons, carousel arrows.
+   Files load in numeric order; later files refine earlier ones. */
+
+.cd figure {
+  background:
+    radial-gradient(
+      75% 60% at 90% 4%,
+      rgba(233, 190, 108, .5),
+      transparent 62%),
+    linear-gradient(
+      165deg,
+      #17191d,
+      #0a0a0c 70%);
+  perspective: 900px;
+}
+.cd figure:before {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 8%;
+  height: 6%;
+  background:
+    radial-gradient(
+      closest-side,
+      rgba(0, 0, 0, .7),
+      transparent);
+  filter: blur(6px);
+}
+.cd .pi {
+  position: absolute;
+  inset: 7%;
+  width: 86%;
+  height: 86%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 0, .55));
+}
+@media (hover: hover) {
+  .cd:hover .pi {
+    animation: swing .9s cubic-bezier(.2, .7, .2, 1);
+    transform: scale(1.07);
+    transition-delay: .9s;
+  }
+}
+@keyframes swing {
+  0% {
+    transform: perspective(900px) rotateY(-80deg) scale(.9);
+  }
+  100% {
+    transform: perspective(900px) rotateY(0) scale(1);
+  }
+}
+.act {
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  gap: 10px;
+  justify-content: center;
+  background: none;
+  border: 0;
+  transform: none;
+  opacity: 1;
+  pointer-events: none;
+  transition: none;
+}
+.cd:hover .act,
+.cd:focus-within .act {
+  transform: none;
+  opacity: 1;
+  transition-delay: 0s;
+}
+.act button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  pointer-events: auto;
+  background: rgba(13, 12, 10, .5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 164, 92, .55);
+  color: var(--ivory);
+  opacity: 0;
+  transform: translateY(18px) scale(.8);
+  transition:
+    opacity .45s,
+    transform .55s cubic-bezier(.2, .8, .2, 1),
+    background .35s,
+    color .35s;
+}
+@media (hover: hover) {
+  .cd:hover .act button {
+    opacity: 1;
+    transform: none;
+    transition-delay:
+      calc(.95s + var(--i)*.08s),
+      calc(.95s + var(--i)*.08s),
+      0s,
+      0s;
+  }
+}
+.cd:focus-within .act button {
+  opacity: 1;
+  transform: none;
+}
+.act button:hover,
+.act button.on {
+  background:
+    linear-gradient(
+      135deg,
+      #f3dc9f,
+      #c9a45c 50%,
+      #a8803a);
+  color: var(--ink);
+}
+.cd:hover .act button:hover {
+  transition-delay: 0s;
+}
+.act button .rg {
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+}
+.act button:before {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translate(-50%, 6px);
+  white-space: nowrap;
+  font: italic 400 13px var(--serif);
+  color: var(--gold2);
+  background: var(--ink);
+  border: 1px solid var(--line);
+  padding: 3px 11px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+.act button:hover:before {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.act button.on i {
+  animation: hp .5s;
+}
+@keyframes hp {
+  40% {
+    transform: scale(1.5);
+  }
+}
+button:hover > .rg rect,
+button:focus-visible > .rg rect {
+  opacity: 1;
+  transform: none;
+  animation: draw .55s ease-out both, orb 2.6s linear .55s infinite;
+}
+.arw {
+  top: 42%;
+  margin-top: -27px;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(201, 164, 92, .35);
+  background: rgba(13, 12, 10, .55);
+  backdrop-filter: blur(10px);
+  color: var(--gold2);
+  transition:
+    background .4s,
+    color .4s,
+    transform .3s;
+}
+.arw .ar {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.arw.l .ar {
+  transform: scaleX(-1);
+}
+.arw.r:hover .ar {
+  transform: translateX(4px);
+}
+.arw.l:hover .ar {
+  transform: scaleX(-1) translateX(4px);
+}
+.arw:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #f3dc9f,
+      #c9a45c 50%,
+      #a8803a);
+  color: var(--ink);
+}
+.arw:active {
+  transform: scale(.92);
+}
+.arw .rg {
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+}
+.arw .pg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+.arw .pg circle {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 25 100;
+  transition: stroke-dasharray .8s cubic-bezier(.2, .8, .2, 1);
+}
+.zm {
+  background:
+    radial-gradient(
+      75% 60% at 90% 4%,
+      rgba(233, 190, 108, .5),
+      transparent 62%),
+    linear-gradient(
+      165deg,
+      #17191d,
+      #0a0a0c 70%);
+}
+.zi img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8%;
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 0, .55));
+}
+#cb img {
+  background: #0d0c0a;
+  object-fit: contain;
+  padding: 2px;
+}
